@@ -1,7 +1,7 @@
 CREATE DATABASE HeadHunter
 DROP TABLE HH_employers IF EXISTS
 CREATE TABLE HH_vacancies
-(id SERIAL PRIMARY KEY
+(id SERIAL PRIMARY KEY,
  company_id INTEGER,
  vacancy VARCHAR,
  salary_min INTEGER,
