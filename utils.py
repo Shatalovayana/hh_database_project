@@ -1,5 +1,3 @@
-from pprint import pprint
-from typing import Any
 from configparser import ConfigParser
 import requests
 import psycopg2

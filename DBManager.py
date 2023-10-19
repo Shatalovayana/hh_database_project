@@ -35,7 +35,6 @@ class DBManager:
                     SELECT HH_employers.company_name, vacancy, salary_min, HH_vacancies.url from HH_vacancies 
                     JOIN HH_employers USING (company_id)
                         """)
-            cur.fetchall()
             pprint(cur.fetchall())
         conn.close()
 
@@ -60,10 +59,9 @@ class DBManager:
 
         with conn.cursor() as cur:
             cur.execute("""
-                        SELECT vacancy, salary_min from HH_vacancies
+                        SELECT vacancy, salary_min FROM HH_vacancies
                         WHERE salary_min > (SELECT AVG(salary_min) FROM HH_vacancies)
                      """)
-            cur.fetchall()
             pprint(cur.fetchall())
         conn.close()
 
@@ -75,7 +73,7 @@ class DBManager:
 
         with conn.cursor() as cur:
             cur.execute("""
-                       SELECT vacancy from HH_vacancies
+                       SELECT vacancy FROM HH_vacancies
                        WHERE vacancy IN ('Оператор видеонаблюдения')
                     """)
             pprint(cur.fetchall())
