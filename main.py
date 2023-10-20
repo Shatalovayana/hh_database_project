@@ -5,7 +5,7 @@ from utils import save_data_to_database, config, format_companies_and_vacancies_
 
 def main():
     params = config()
-    #save_data_to_database(database_name='HeadHunter', params=params)
+    save_data_to_database(database_name='HeadHunter', params=params)
     while True:
         user_input = input("""
 1 - Вывести все компании и количество открытых вакансий,

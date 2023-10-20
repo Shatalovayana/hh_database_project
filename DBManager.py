@@ -77,8 +77,8 @@ class DBManager:
             cur.execute(f"""
                        SELECT HH_employers.company_name, vacancy, salary_min FROM HH_vacancies
                        JOIN HH_employers USING (company_id)
-                       WHERE vacancy LIKE '%{keyword}%'
-                    """)
+                       WHERE lower(vacancy) LIKE '%{keyword.lower()}%'
+                       """)
             data = cur.fetchall()
         conn.close()
         return data
