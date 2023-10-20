@@ -30,9 +30,8 @@ Exit - Выйти из программы.
         elif user_input == '5':
             print('Введите вакансию для поиска:')
             user_input_keyword = input()
-            for keyword in user_input_keyword:
-                result = DBManager.get_vacancies_with_keyword(keyword)
-                format_data = format_vacancies_with_keyword(result)
+            result = DBManager.get_vacancies_with_keyword(user_input_keyword)
+            format_data = format_vacancies_with_keyword(result)
         elif user_input.lower() == "exit":
             print('До свидания!')
             break
