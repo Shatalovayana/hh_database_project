@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import psycopg2
 
 from utils import config
@@ -20,8 +18,9 @@ class DBManager:
             cur.execute("""
                     SELECT company_name, open_vacancies FROM HH_employers
                 """)
-            pprint(cur.fetchall())
+            data = cur.fetchall()
         conn.close()
+        return data
 
     @staticmethod
     def get_all_vacancies():
@@ -35,8 +34,9 @@ class DBManager:
                     SELECT HH_employers.company_name, vacancy, salary_min, HH_vacancies.url from HH_vacancies 
                     JOIN HH_employers USING (company_id)
                         """)
-            pprint(cur.fetchall())
+            data = cur.fetchall()
         conn.close()
+        return data
 
     @staticmethod
     def get_avg_salary():
@@ -48,8 +48,9 @@ class DBManager:
             cur.execute("""
                          SELECT AVG(salary_min) FROM HH_vacancies
                      """)
-            pprint(cur.fetchall())
+            data = cur.fetchall()
         conn.close()
+        return data
 
     @staticmethod
     def get_vacancies_with_higher_salary():
@@ -62,26 +63,22 @@ class DBManager:
                         SELECT vacancy, salary_min FROM HH_vacancies
                         WHERE salary_min > (SELECT AVG(salary_min) FROM HH_vacancies)
                      """)
-            pprint(cur.fetchall())
+            data = cur.fetchall()
         conn.close()
+        return data
 
     @staticmethod
-    def get_vacancies_with_keyword():
+    def get_vacancies_with_keyword(keyword):
         """Получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python."""
         params = config()
         conn = psycopg2.connect(dbname='HeadHunter', **params)
 
         with conn.cursor() as cur:
-            cur.execute("""
-                       SELECT vacancy FROM HH_vacancies
-                       WHERE vacancy IN ('Оператор видеонаблюдения')
+            cur.execute(f"""
+                       SELECT HH_employers.company_name, vacancy, salary_min FROM HH_vacancies
+                       JOIN HH_employers USING (company_id)
+                       WHERE vacancy LIKE '%{keyword}%'
                     """)
-            pprint(cur.fetchall())
+            data = cur.fetchall()
         conn.close()
-
-
-DBManager.get_companies_and_vacancies_count()
-DBManager.get_all_vacancies()
-DBManager.get_avg_salary()
-DBManager.get_vacancies_with_higher_salary()
-DBManager.get_vacancies_with_keyword()
+        return data

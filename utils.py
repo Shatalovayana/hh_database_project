@@ -79,7 +79,6 @@ def save_data_to_database(database_name: str, params: dict):
     vacancy_data = format_data()
     with conn.cursor() as cur:
         for vacancy in vacancy_data:
-
             cur.execute(
                 """
                 INSERT INTO HH_vacancies (company_id, vacancy, salary_min, description, url)
@@ -101,3 +100,50 @@ def save_data_to_database(database_name: str, params: dict):
                 (employer['id'], employer['company_name'], employer['open_vacancies'], employer['url']))
     conn.commit()
     conn.close()
+
+
+def format_companies_and_vacancies_count(values: list):
+    """Форматирует данные, полученные из функции get_companies_and_vacancies_count"""
+    formatted_values = []
+    for value in values:
+        formatted_values.append(f'Название компании: {value[0]}\n'
+                                f'Количество открытых вакансий: {value[1]}\n')
+    return '\n'.join(formatted_values)
+
+
+def format_all_vacancies(values: list):
+    """Форматирует данные, полученные из функции get_all_vacancies"""
+    formatted_values = []
+    for value in values:
+        formatted_values.append(f'Название компании: {value[0]}\n'
+                                f'Название вакансии: {value[1]}\n'
+                                f'Минимальная зарплата: {value[2]}\n'
+                                f'Ссылка на вакансию: {value[3]}\n')
+    return '\n'.join(formatted_values)
+
+
+def format_avg_salary(values: list):
+    """Форматирует данные, полученные из функции get_avg_salary"""
+    formatted_values = []
+    for value in values:
+        formatted_values.append(f'Средняя минимальная зарплата по всем вакансиям: {value[0]}\n')
+    return '\n'.join(formatted_values)
+
+
+def format_vacancies_with_higher_salary(values: list):
+    """Форматирует данные, полученные из функции get_vacancies_with_higher_salary"""
+    formatted_values = []
+    for value in values:
+        formatted_values.append(f'Название вакансии: {value[0]}\n'
+                                f'Минимальная зарплата: {value[1]}\n')
+    return '\n'.join(formatted_values)
+
+
+def format_vacancies_with_keyword(values: list):
+    """Форматирует данные, полученные из функции get_vacancies_with_keyword"""
+    formatted_values = []
+    for value in values:
+        formatted_values.append(f'Название компании: {value[0]}\n'
+                                f'Название вакансии: {value[1]}\n'
+                                f'Минимальная зарплата: {value[2]}\n')
+    return '\n'.join(formatted_values)

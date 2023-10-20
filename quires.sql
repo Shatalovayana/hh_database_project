@@ -1,5 +1,6 @@
 CREATE DATABASE HeadHunter
 DROP TABLE HH_employers IF EXISTS
+DROP TABLE HH_vacancies IF EXISTS
 CREATE TABLE HH_vacancies
 (id SERIAL PRIMARY KEY,
  company_id INTEGER,
