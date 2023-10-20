@@ -5,7 +5,7 @@ from utils import save_data_to_database, config, format_companies_and_vacancies_
 
 def main():
     params = config()
-    save_data_to_database(database_name='HeadHunter', params=params)
+    #save_data_to_database(database_name='HeadHunter', params=params)
     while True:
         user_input = input("""
 1 - Вывести все компании и количество открытых вакансий,
@@ -31,7 +31,10 @@ Exit - Выйти из программы.
             print('Введите вакансию для поиска:')
             user_input_keyword = input()
             result = DBManager.get_vacancies_with_keyword(user_input_keyword)
-            format_data = format_vacancies_with_keyword(result)
+            if result:
+                format_data = format_vacancies_with_keyword(result)
+            else:
+                print('\nНет такой вакансии')
         elif user_input.lower() == "exit":
             print('До свидания!')
             break
