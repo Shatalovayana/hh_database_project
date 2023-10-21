@@ -1,7 +1,5 @@
-CREATE DATABASE HeadHunter
-DROP TABLE HH_employers IF EXISTS
-DROP TABLE HH_vacancies IF EXISTS
-CREATE TABLE HH_vacancies
+CREATE DATABASE IF NOT EXISTS HeadHunter
+CREATE TABLE IF NOT EXISTS HH_vacancies
 (id SERIAL PRIMARY KEY,
  company_id INTEGER,
  vacancy VARCHAR,
@@ -10,7 +8,7 @@ CREATE TABLE HH_vacancies
  url VARCHAR)
 
 
-CREATE TABLE HH_employers
+CREATE TABLE IF NOT EXISTS HH_employers
 (company_id INTEGER PRIMARY KEY,
  company_name VARCHAR,
  open_vacancies INTEGER,
